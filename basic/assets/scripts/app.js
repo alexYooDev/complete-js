@@ -1,41 +1,60 @@
 const defaultResult = 0;
 let currentResult = defaultResult; // insert the value copy of the const into let
+let logEntries = [];
 
+// Function that returns int-type userInput
 const getUserNumberInput = () => {
   return parseInt(usrInput.value);
 };
 
+// Generates and writes calculation log
 const createOutput = (oprt, before, calcNum) => {
   const calcDesc = `${before} ${oprt} ${calcNum}`;
-  outputResult(currentResult, calcDesc);
+  outputResult(currentResult, calcDesc); // from vendor file
+};
+
+const writeLog = (operationIndentifier, prevResult, operand, newResult) => {
+  // object: groupes the related datas
+  const logEntry = {
+    operation: operationIndentifier,
+    prevResult: prevResult,
+    operand: operand,
+    result: newResult,
+  };
+  logEntries.push(logEntry);
+  console.log(logEntries);
 };
 
 const add = () => {
   const enteredNum = getUserNumberInput();
   const initialResult = currentResult;
-  currentResult = currentResult + enteredNum;
+  currentResult += enteredNum;
   createOutput('+', initialResult, enteredNum);
+  writeLog('Add', initialResult, enteredNum, currentResult);
 };
 
 const subtract = () => {
   const enteredNum = getUserNumberInput();
   const initialResult = currentResult;
-  currentResult = currentResult - enteredNum;
+  currentResult -= enteredNum;
   createOutput('-', initialResult, enteredNum);
+  writeLog('Subtract', initialResult, enteredNum, currentResult);
 };
 
 const multiply = () => {
   const enteredNum = getUserNumberInput();
   const initialResult = currentResult;
-  currentResult = currentResult * enteredNum;
+  currentResult *= enteredNum;
   createOutput('*', initialResult, enteredNum);
+  writeLog('multiply', initialResult, enteredNum, currentResult);
 };
 
 const divide = () => {
   const enteredNum = getUserNumberInput();
   const initialResult = currentResult;
-  currentResult = currentResult / enteredNum;
+  currentResult /= enteredNum;
   createOutput('/', initialResult, enteredNum);
+  writeLog('Divide', initialResult, enteredNum, currentResult);
 };
 
 addBtn.addEventListener('click', add);
